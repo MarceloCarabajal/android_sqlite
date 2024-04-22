@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hasar.agenda.db.DbContactos;
 import com.hasar.agenda.entidades.Contactos;
 
@@ -17,7 +18,7 @@ public class EditarActivity extends AppCompatActivity {
     EditText txtNombre, txtTelefono, txtCorreo;
     boolean correcto = false;
     Button btnGuardar;
-
+    FloatingActionButton fabEditar, fabEliminar;
     Contactos contacto;
     int id = 0;
     @Override
@@ -29,7 +30,10 @@ public class EditarActivity extends AppCompatActivity {
         txtTelefono = findViewById(R.id.txtTelefono);
         txtCorreo = findViewById(R.id.txtCorreo);
         btnGuardar = findViewById(R.id.btnGuardar);
-
+        fabEditar = findViewById(R.id.fabEditar);
+        fabEditar.setVisibility(View.INVISIBLE);
+        fabEliminar = findViewById(R.id.fabEliminar);
+        fabEliminar.setVisibility(View.INVISIBLE);
 
         if(savedInstanceState == null){
             Bundle extras = getIntent().getExtras();

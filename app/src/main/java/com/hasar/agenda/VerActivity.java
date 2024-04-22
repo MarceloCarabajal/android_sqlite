@@ -1,7 +1,9 @@
 package com.hasar.agenda;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -16,7 +18,7 @@ import com.hasar.agenda.entidades.Contactos;
 public class VerActivity extends AppCompatActivity {
     EditText txtNombre, txtTelefono, txtCorreo;
     Button btnGuardar;
-    FloatingActionButton fabEditar;
+    FloatingActionButton fabEditar, fabEliminar;
 
 
     Contactos contacto;
@@ -31,6 +33,7 @@ public class VerActivity extends AppCompatActivity {
         txtCorreo = findViewById(R.id.txtCorreo);
         btnGuardar = findViewById(R.id.btnGuardar);
         fabEditar = findViewById(R.id.fabEditar);
+        fabEliminar = findViewById(R.id.fabEliminar);
 
         if(savedInstanceState == null){
             Bundle extras = getIntent().getExtras();
@@ -65,5 +68,30 @@ public class VerActivity extends AppCompatActivity {
             }
         });
 
+        fabEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(VerActivity.this);
+                builder.setMessage("¿Desea eliminar este contacto?")
+                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(dbContactos.eliminarContacto(id)) {
+                                    lista();
+                                }
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).show();
+            }
+        });
+    }
+    private void lista(){
+        Intent intent = new Intent(VerActivity.this, EditarActivity.class);
+        startActivity(intent);
     }
 }
