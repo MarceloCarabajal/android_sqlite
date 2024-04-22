@@ -1,5 +1,7 @@
 package com.hasar.agenda.adaptadores;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hasar.agenda.R;
+import com.hasar.agenda.VerActivity;
 import com.hasar.agenda.entidades.Contactos;
 
 import java.util.ArrayList;
@@ -47,6 +50,16 @@ public class ListaContactosAdapter extends RecyclerView.Adapter<ListaContactosAd
             tvNombre = itemView.findViewById(R.id.tvNombre);
             tvTelefono = itemView.findViewById(R.id.tvTelefono);
             tvCorreo = itemView.findViewById(R.id.tvCorreo);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, VerActivity.class);
+                    intent.putExtra("ID", listaContactos.get(getAdapterPosition()).getId());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }
